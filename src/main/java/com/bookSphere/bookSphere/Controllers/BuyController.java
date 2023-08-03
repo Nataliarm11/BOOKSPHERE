@@ -88,7 +88,7 @@ public class BuyController {
             Document document = new Document();
             PdfWriter.getInstance(document, baos);
             document.open();
-            Image image = Image.getInstance("C:/Users/Julian/OneDrive/Escritorio/MINDHUB/bookSphereU7/src/main/resources/static/assets/images/logoFooter.png");
+            Image image = Image.getInstance("https://ibb.co/MRzv0yx");
             image.scaleToFit(200, 200);
             document.add(image);
             Font titleFont = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD);
