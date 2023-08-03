@@ -39,7 +39,7 @@ app = createApp({
     },
     methods: {
         createUserMessage() {
-            const url = "http://localhost:8080/api/message/create";
+            const url = "/api/message/create";
             const data = {
                 fullName: this.fullName,
                 email: this.email,
@@ -86,7 +86,7 @@ app = createApp({
         },
 
         loadData() {
-            axios.get('http://localhost:8080/api/clients/current')
+            axios.get('/api/clients/current')
                 .then(response => {
                     this.clients = response.data;
                     console.log(this.clients)
@@ -100,7 +100,7 @@ app = createApp({
             if (this.emailTwo && this.password) {
                 if (this.emailTwo.includes("admin")) {
                     axios.post(
-                        "http://localhost:8080/api/login",
+                        "/api/login",
                         `email=${this.emailTwo}&password=${this.password}`,
                         { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
                     )
@@ -114,7 +114,7 @@ app = createApp({
                                     timer: 1500
                                 });
                                 setTimeout(() => {
-                                    window.location.href = "http://localhost:8080/manager.html";
+                                    window.location.href = "/manager.html";
                                 }, 1800);
                             }
                         })
@@ -128,7 +128,7 @@ app = createApp({
                             });
                         });
                 } else {
-                    axios.post("http://localhost:8080/api/login", `email=${this.emailTwo}&password=${this.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+                    axios.post("/api/login", `email=${this.emailTwo}&password=${this.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                         .then(response => {
                             Swal.fire({
                                 position: 'center',
@@ -173,14 +173,14 @@ app = createApp({
                 if (this.passwordRegister === this.passwordConfirm) {
                     axios
                         .post(
-                            'http://localhost:8080/api/clients/register',
+                            '/api/clients/register',
                             `firstName=${this.firstNameRegister}&lastName=${this.lastNameRegister}&email=${this.emailRegister}&password=${this.passwordRegister}`,
                             { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
                         )
                         .then(response => {
                             axios
                                 .post(
-                                    'http://localhost:8080/api/login',
+                                    '/api/login',
                                     `email=${this.emailRegister}&password=${this.passwordRegister}`,
                                     { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
                                 )
@@ -228,9 +228,9 @@ app = createApp({
 
 
         logOut() {
-            axios.post(`http://localhost:8080/api/logout`)
+            axios.post(`/api/logout`)
                 .then(response => {
-                    return window.location.href = "http://localhost:8080/index.html";
+                    return window.location.href = "/index.html";
                 })
                 .catch(error => console.log(error));
         },

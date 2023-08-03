@@ -36,7 +36,7 @@ createApp({
                     };
                     console.log(data)
                     setTimeout(() => {
-                        axios.post("http://localhost:8080/api/orderGenerator", data, { responseType: 'arraybuffer' })
+                        axios.post("/api/orderGenerator", data, { responseType: 'arraybuffer' })
                             .then(res => {
                                 const blob = new Blob([res.data], { type: 'application/pdf' })
                                 const url = window.URL.createObjectURL(blob)

@@ -36,7 +36,7 @@ const app = createApp ({
 
     methods: {
         loadData(){
-            axios.get('http://localhost:8080/api/clients/current')
+            axios.get('/api/clients/current')
             .then(response => {
                 this.clients = response.data;
                 console.log(this.clients);
@@ -71,7 +71,7 @@ const app = createApp ({
                 });
                 return;
             }
-            axios.put(`http://localhost:8080/api/clients/address?shippingAdress=${this.address}`)
+            axios.put(`/api/clients/address?shippingAdress=${this.address}`)
                 .then(response => {
                     Swal.fire({
                         position: 'center',
@@ -142,9 +142,9 @@ const app = createApp ({
         },
 
         logOut(){
-            axios.post(`http://localhost:8080/api/logout`)
+            axios.post(`/api/logout`)
                 .then(response => {
-                    return window.location.href = "http://localhost:8080/index.html";
+                    return window.location.href = "/index.html";
                 })
                 .catch(error => console.log(error));
         }, 
