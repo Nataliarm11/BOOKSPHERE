@@ -18,8 +18,22 @@
   <title>HOME | BOOKSPHERE</title>
 </head>
 
-<body>
+<body v-cloak>
   <div id="app">
+    <style>
+      [v-cloak]>* {
+          display: none;
+      }
+
+      /* [v-cloak]::before {
+          content: "Loading..";
+          background-image: url('../assets/images/LOADING.png');
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+          font-size: 2rem;
+          font-weight: 700;
+          color: black;
+      } */
+  </style>
     <!-- Modal Login -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -43,15 +57,15 @@
               <button class="button" @click.prevent="logIn">
                 <span class="text text-black fw-bolder">SIGN IN</span>
                 <span class="iconBook"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book"
-                  viewBox="0 0 24 24"  stroke-width="1.0" stroke="#000000" fill="none" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                  <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                  <path d="M3 6l0 13" />
-                  <path d="M12 6l0 13" />
-                  <path d="M21 6l0 13" />
-                </svg></span>
+                    viewBox="0 0 24 24" stroke-width="1.0" stroke="#000000" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                    <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                    <path d="M3 6l0 13" />
+                    <path d="M12 6l0 13" />
+                    <path d="M21 6l0 13" />
+                  </svg></span>
               </button>
             </form>
           </div>
@@ -100,15 +114,15 @@
             <button class="button" @click.prevent="register">
               <span class="text text-black fw-bold">REGISTER AND SIGN IN</span>
               <span class="iconBook"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book"
-                viewBox="0 0 24 24"  stroke-width="1.0" stroke="#000000" fill="none" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
-                <path d="M3 6l0 13" />
-                <path d="M12 6l0 13" />
-                <path d="M21 6l0 13" />
-              </svg></span>
+                  viewBox="0 0 24 24" stroke-width="1.0" stroke="#000000" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                  <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+                  <path d="M3 6l0 13" />
+                  <path d="M12 6l0 13" />
+                  <path d="M21 6l0 13" />
+                </svg></span>
             </button>
           </div>
         </div>
@@ -118,44 +132,44 @@
     <!-- Modal de carrito de compras -->
     <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <img src="./assets/images/logoCorto.png" alt="Logo" width="150" height="50">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <div class="cart-item cartItemPeq m-2 d-flex justify-content-between align-items-center"
-                      v-for="item of cart">
-                      <img class="cartItemImgPeq" :src="item.img" alt="itemImg">
-                      <div class="w-25">
-                          <span class="item-name">{{item.title}} </span>
-                      </div>
-                      <div>
-                          <span class="item-quantity"> {{item.quantity}} Uds. </span>
-                          <span class="item-price"> $ {{multipleItemCalculator(item.quantity,
-                              item.price).toFixed(2)}} USD</span>
-                      </div>
-                      <button class="btnDelete" @click="deleteItem(item.title)">X</button>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <div class="total-price d-flex flex-column align-items-center fw-bolder">
-                      <p>Discount will be applied on the payment page!</p>
-                      <span class="total-label">Total:</span>
-                      <span class="total-value">$ {{cartTotal.toFixed(2)}}</span>
-                  </div>
-                  <button class="btn btn-danger" @click="clearCart()">Clear Cart</button>
-                  <button class="button" @click.prevent="goToCart">
-                      <span class="text text-black">Go to shopping cart</span>
-                      <span class="iconCar"><svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 840 512">
-                          <path
-                            d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                        </svg></span>
-                  </button>
-              </div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <img src="./assets/images/logoCorto.png" alt="Logo" width="150" height="50">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <div class="modal-body">
+            <div class="cart-item cartItemPeq m-2 d-flex justify-content-between align-items-center"
+              v-for="item of cart">
+              <img class="cartItemImgPeq" :src="item.img" alt="itemImg">
+              <div class="w-25">
+                <span class="item-name">{{item.title}} </span>
+              </div>
+              <div>
+                <span class="item-quantity"> {{item.quantity}} Uds. </span>
+                <span class="item-price"> $ {{multipleItemCalculator(item.quantity,
+                  item.price).toFixed(2)}} USD</span>
+              </div>
+              <button class="btnDelete" @click="deleteItem(item.title)">X</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="total-price d-flex flex-column align-items-center fw-bolder">
+              <p>Discount will be applied on the payment page!</p>
+              <span class="total-label">Total:</span>
+              <span class="total-value">$ {{cartTotal.toFixed(2)}}</span>
+            </div>
+            <button class="btn btn-danger" @click="clearCart()">Clear Cart</button>
+            <button class="button" @click.prevent="goToCart">
+              <span class="text text-black">Go to shopping cart</span>
+              <span class="iconCar"><svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 840 512">
+                  <path
+                    d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                </svg></span>
+            </button>
+          </div>
+        </div>
       </div>
-  </div>
+    </div>
 
     <header class="header-container">
       <section class="headerUno custom-header">
@@ -299,7 +313,8 @@
                 <br>
                 <br>
                 <h5 class="fw-bold text-center">{{book.author}}</h5>
-                <h6 class="fw-bold text-center">${{ String(book.price).split('.')[0] }}<span class="punto-grande">.</span>{{ String(book.price).split('.')[1].slice(0, 2) }}</h6>
+                <h6 class="fw-bold text-center">${{ String(book.price).split('.')[0] }}<span
+                    class="punto-grande">.</span>{{ String(book.price).split('.')[1].slice(0, 2) }}</h6>
                 <!-- <h6 class="fw-bold text-center">${{book.price.slice(0,2)}}</h6> -->
               </a>
             </div>

@@ -17,9 +17,22 @@
 
 </head>
 
-<body>
-
+<body v-cloak>
   <div id="app">
+    <style>
+      [v-cloak]>* {
+        display: none;
+      }
+
+      /* [v-cloak]::before {
+        content: "Loading..";
+        background-image: url('../assets/images/LOADING.png');
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: black;
+      } */
+    </style>
     <header class="header-container">
 
       <section class="headerUno custom-header">
@@ -33,7 +46,7 @@
           <h3 id="admin_panel_h3">Admin panel</h3>
         </div>
         <nav class="right-menu d-flex justify-content-evenly h-25">
-          <a class="text-black fw-bolder text-decoration-none nav-link text-uppercase" >{{clients.firstName}}</a>
+          <a class="text-black fw-bolder text-decoration-none nav-link text-uppercase">{{clients.firstName}}</a>
           <!-- <img src="./assets/images/User_font_awesome.svg" id="user_img" alt=""><img src="./assets/images/key-svgrepo-com.svg" id="admin_img" alt=""> -->
           <!-- <a class="text-black nav-link" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 576 512">
@@ -47,7 +60,7 @@
             </svg>
           </a> -->
           <a class="btn text-black fw-bold d-flex justify-content-center align-items-center button-29  text-uppercase"
-          @click.prevent="logOut">Sign Out</a>
+            @click.prevent="logOut">Sign Out</a>
         </nav>
 
       </section>
@@ -67,11 +80,14 @@
             </button>
             <div class="collapse navbar-collapse flex-grow-0 gap-5" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="text-black text-center fw-bolder text-decoration-none nav-link" href="./pages/events.html">EVENTS</a>
-                <a class="text-black text-center fw-bolder text-decoration-none nav-link" href="./pages/services.html">SERVICES</a>
-                <a class="text-black text-center fw-bolder text-decoration-none nav-link" href="./pages/bookShop.html">BOOKSHOP</a>
+                <a class="text-black text-center fw-bolder text-decoration-none nav-link"
+                  href="./pages/events.html">EVENTS</a>
+                <a class="text-black text-center fw-bolder text-decoration-none nav-link"
+                  href="./pages/services.html">SERVICES</a>
+                <a class="text-black text-center fw-bolder text-decoration-none nav-link"
+                  href="./pages/bookShop.html">BOOKSHOP</a>
                 <a class="btn text-black fw-bold d-flex justify-content-center align-items-center button-29  text-uppercase"
-                @click.prevent="logOut">Sign Out</a>
+                  @click.prevent="logOut">Sign Out</a>
                 <!-- <a class="text-black text-center fw-bolder text-decoration-none nav-link" href="#">LOGIN</a> -->
                 <!-- <a class="text-black text-center fw-bolder text-decoration-none nav-link" href="#">REGISTER</a> -->
                 <!-- <a class="text-black text-center nav-link" href="#">
@@ -96,7 +112,7 @@
         <button class="main_btn" @click="updateProperty('Add new User')" id="user_btn">Add new User</button>
         <button class="main_btn" @click="updateProperty('Read messages')" id="msg_btn">Read messages</button>
         <button class="main_btn" @click="updateProperty('Buy Orders')" id="order_btn">Buy Orders</button>
-        <button class="main_btn" @click="updateProperty('Reservations')" id="reservation_btn">Reservations</button>    
+        <button class="main_btn" @click="updateProperty('Reservations')" id="reservation_btn">Reservations</button>
       </div>
       <div v-if="buttonText==''" id="main_img">
         <img src="./assets/images/logoFooter.png" id="logo_main" alt="">
@@ -143,7 +159,7 @@
                 <td>{{ book.isbn }}</td>
                 <td>{{ book.category }}</td>
                 <!-- <td>{{ book.description }}</td> -->
-                <td><img id="img" :src="book.img" alt="Portada del Libro" ></td>
+                <td><img id="img" :src="book.img" alt="Portada del Libro"></td>
                 <td>$ {{ book.price }}</td>
                 <td>{{ book.stock }}u</td>
                 <td>% {{ book.discount }}</td>
@@ -289,90 +305,97 @@
       <!-- READ USER MESSAGES -->
       <div id="read_user_messages" v-if="buttonText=='Read messages'">
 
-            <div id="messages_table" v-if="buttonText=='Read messages' && userMessages.length>0">
-              <table id="msg_table">
-                <thead>
-                  <tr>
-                    <th>Full name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Message</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="message of userMessages">
-                    <td>{{ message.fullName }}</td>
-                    <td>{{ message.email }}</td>
-                    <td>{{ message.phoneNumber }}</td>
-                    <td>{{ message.message }}</td>
-                    <td><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteMessage(message.id)" id="bin">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- list responsive -->
-            <ul id="table" v-for="message of userMessages">
-              <li>{{ message.fullName }}</li>
-              <li>{{ message.email }}</li>
-              <li>{{ message.phoneNumber }}</li>
-              <li id="table_msg_li">{{ message.message }}</li>
-              <li class="bin_table"><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteMessage(message.id)" id="bin" ></li>
-            </ul>
+        <div id="messages_table" v-if="buttonText=='Read messages' && userMessages.length>0">
+          <table id="msg_table">
+            <thead>
+              <tr>
+                <th>Full name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="message of userMessages">
+                <td>{{ message.fullName }}</td>
+                <td>{{ message.email }}</td>
+                <td>{{ message.phoneNumber }}</td>
+                <td>{{ message.message }}</td>
+                <td><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteMessage(message.id)" id="bin">
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <!-- list responsive -->
+        <ul id="table" v-for="message of userMessages">
+          <li>{{ message.fullName }}</li>
+          <li>{{ message.email }}</li>
+          <li>{{ message.phoneNumber }}</li>
+          <li id="table_msg_li">{{ message.message }}</li>
+          <li class="bin_table"><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteMessage(message.id)"
+              id="bin"></li>
+        </ul>
+      </div>
 
-          <!-- BUY ORDERS -->
-<div id="read_user_messages" v-if="buttonText=='Buy Orders'">
-  <ul id="order_ul" v-for="order of buyOrders">
-    <li>{{ order.orderNumber }}</li>
-    <li>{{ order.clientName }}</li>
-    <li>{{ order.date }}</li>
-    <li>${{ order.amount.toLocaleString() }}</li>
-    <li  id="status">{{ order.status }} <img @click="showEdit" v-if="showEditStatus==false" id="pencil_edit" src="./assets/images/pencil-square.svg" alt=""> </i><div v-if="showEditStatus==true">
-      <select v-model="orderStatus" name="" id="status_select">
-      <option :value="'PENDING'">PENDING</option>
-      <option :value="'ON_THE_WAY'">ON THE WAY</option>
-      <option :value="'DELIVERED'">DELIVERED</option>
-    </select> <button @click="editStatus(order.id)" id="confirm_btn">Confirm</button></div></li>
-    <li><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteBuyOrder(order.id)" id="bin">
-    </li>
-  </ul>
-</div>
+      <!-- BUY ORDERS -->
+      <div id="read_user_messages" v-if="buttonText=='Buy Orders'">
+        <ul id="order_ul" v-for="order of buyOrders">
+          <li>{{ order.orderNumber }}</li>
+          <li>{{ order.clientName }}</li>
+          <li>{{ order.date }}</li>
+          <li>${{ order.amount.toLocaleString() }}</li>
+          <li id="status">{{ order.status }} <img @click="showEdit" v-if="showEditStatus==false" id="pencil_edit"
+              src="./assets/images/pencil-square.svg" alt=""> </i>
+            <div v-if="showEditStatus==true">
+              <select v-model="orderStatus" name="" id="status_select">
+                <option :value="'PENDING'">PENDING</option>
+                <option :value="'ON_THE_WAY'">ON THE WAY</option>
+                <option :value="'DELIVERED'">DELIVERED</option>
+              </select> <button @click="editStatus(order.id)" id="confirm_btn">Confirm</button>
+            </div>
+          </li>
+          <li><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteBuyOrder(order.id)" id="bin">
+          </li>
+        </ul>
+      </div>
 
-<!-- RESERVATIONS -->
-<div id="read_user_messages" v-if="buttonText=='Reservations'">
-  <div id="messages_table" v-if="buttonText=='Reservations'">
-    <table id="msg_table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Client</th>
-          <th>Date</th>
-          <th>Room</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="reservation of reservations">
-          <td>{{ reservation.id }}</td>
-          <td>{{reservation.client}}</td>
-          <td>{{ reservation.date }}</td>
-          <td>{{ reservation.eventRoom }}</td>
-          <td><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteReservation(reservation.id)" id="bin">
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-   <!-- list responsive -->
-   <ul id="table_msg" v-for="reservation of reservations">
-    <li>ID: {{ reservation.id }}</li>
-    <li>CLIENT: {{ reservation.client }}</li>
-    <li>DATE: {{ reservation.date }}</li>
-    <li>ROOM: {{ reservation.eventRoom }}</li>
-    <li class="bin_table"><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteReservation(reservation.id)" id="bin" ></li>
-  </ul>
-</div>
+      <!-- RESERVATIONS -->
+      <div id="read_user_messages" v-if="buttonText=='Reservations'">
+        <div id="messages_table" v-if="buttonText=='Reservations'">
+          <table id="msg_table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Room</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="reservation of reservations">
+                <td>{{ reservation.id }}</td>
+                <td>{{reservation.client}}</td>
+                <td>{{ reservation.date }}</td>
+                <td>{{ reservation.eventRoom }}</td>
+                <td><img src="./assets/images/trash-can-10416.png" alt="" @click="deleteReservation(reservation.id)"
+                    id="bin">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- list responsive -->
+        <ul id="table_msg" v-for="reservation of reservations">
+          <li>ID: {{ reservation.id }}</li>
+          <li>CLIENT: {{ reservation.client }}</li>
+          <li>DATE: {{ reservation.date }}</li>
+          <li>ROOM: {{ reservation.eventRoom }}</li>
+          <li class="bin_table"><img src="./assets/images/trash-can-10416.png" alt=""
+              @click="deleteReservation(reservation.id)" id="bin"></li>
+        </ul>
+      </div>
 
 
     </main>
