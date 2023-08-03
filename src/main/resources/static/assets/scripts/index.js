@@ -32,12 +32,12 @@ const app = createApp({
     },
     methods: {
         loadData() {
-            axios.get("http://localhost:8080/api/authors")
+            axios.get("/api/authors")
                 .then(response => {
                     this.authors = response.data.slice(1, 2).concat(response.data[3])
                 })
                 .catch(error => console.log(error));
-            axios.get("http://localhost:8080/api/books")
+            axios.get("/api/books")
                 .then(response => {
                     this.books = response.data;
                     this.bookHorror = this.books.filter(book => book.category === 'Horror').slice(5, 10)
@@ -46,12 +46,12 @@ const app = createApp({
                     console.log(this.categoryHorror)
                 })
                 .catch(error => console.log(error));
-            axios.get("http://localhost:8080/api/events")
+            axios.get("/api/events")
                 .then(response => {
                     this.events = response.data.slice(1, 3).concat(response.data[4])
                 })
                 .catch(error => console.log(error));
-            axios.get('http://localhost:8080/api/clients/current')
+            axios.get('/api/clients/current')
                 .then(response => {
                     this.clients = response.data;
                     console.log(this.clients)
@@ -62,7 +62,7 @@ const app = createApp({
             if (this.email && this.password) {
                 if (this.email.includes("admin")) {
                     axios.post(
-                        "http://localhost:8080/api/login",
+                        "/api/login",
                         `email=${this.email}&password=${this.password}`,
                         { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
                     )
@@ -76,7 +76,7 @@ const app = createApp({
                                     timer: 1500
                                 });
                                 setTimeout(() => {
-                                    window.location.href = "http://localhost:8080/manager.html";
+                                    window.location.href = "/manager.html";
                                 }, 1800);
                             }
                         })
@@ -90,7 +90,7 @@ const app = createApp({
                             });
                         });
                 } else {
-                    axios.post("http://localhost:8080/api/login", `email=${this.email}&password=${this.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+                    axios.post("/api/login", `email=${this.email}&password=${this.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                         .then(response => {
                             Swal.fire({
                                 position: 'center',
@@ -126,14 +126,14 @@ const app = createApp({
                 if (this.passwordRegister === this.passwordConfirm) {
                     axios
                         .post(
-                            'http://localhost:8080/api/clients/register',
+                            '/api/clients/register',
                             `firstName=${this.firstNameRegister}&lastName=${this.lastNameRegister}&email=${this.emailRegister}&password=${this.passwordRegister}`,
                             { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
                         )
                         .then(response => {
                             axios
                                 .post(
-                                    'http://localhost:8080/api/login',
+                                    '/api/login',
                                     `email=${this.emailRegister}&password=${this.passwordRegister}`,
                                     { headers: { 'content-type': 'application/x-www-form-urlencoded' } }
                                 )
@@ -179,9 +179,9 @@ const app = createApp({
             }
         },
         logOut() {
-            axios.post(`http://localhost:8080/api/logout`)
+            axios.post(`/api/logout`)
                 .then(response => {
-                    return window.location.href = "http://localhost:8080/index.html";
+                    return window.location.href = "/index.html";
                 })
                 .catch(error => console.log(error))
         },

@@ -54,34 +54,34 @@ const app=createApp({
         }
     },
     created() {
-        axios.get("http://localhost:8080/api/books")
+        axios.get("/api/books")
             .then(res => {
                 const books = res.data;
                 this.books=books.filter(book=>book.deleted==false)
             })
             .catch(err => console.log(err)); 
 
-        axios.get("http://localhost:8080/api/authors")
+        axios.get("/api/authors")
         .then(res=>{const authors=res.data;
         this.authors=authors.filter(author=>author.deleted==false) })
         .catch(err=>console.log(err))
 
-        axios.get("http://localhost:8080/api/events")
+        axios.get("/api/events")
         .then(res=>{const events=res.data;
         this.events=events.filter(event=>event.deleted==false)})
         .catch(err=>console.log(err))
 
-        axios.get("http://localhost:8080/api/clients")
+        axios.get("/api/clients")
         .then(res=>{const users=res.data;
         this.users=users.filter(user=>user.deleted==false),console.log(this.users);})
         .catch(err=>console.log(err))
 
-        axios.get("http://localhost:8080/api/message")
+        axios.get("/api/message")
         .then(res=>{const messages=res.data;
         this.userMessages=messages.filter(message=>message.deleted==false),console.log(this.userMessages);})
         .catch(err=>console.log(err))
 
-        axios.get ('http://localhost:8080/api/clients/current')
+        axios.get ('/api/clients/current')
         .then ( response => {
             this.clients=response.data;
             console.log(this.clients)
@@ -90,7 +90,7 @@ const app=createApp({
         })
         .catch(error => console.log(error));
 
-        axios.get("http://localhost:8080/api/clients")
+        axios.get("/api/clients")
         .then(res => {
           const users = res.data;
           this.users = users.filter(user => user.deleted == false);
@@ -104,7 +104,7 @@ const app=createApp({
         })
         .catch(err => console.log(err));
 
-        axios.get("http://localhost:8080/api/reservation")
+        axios.get("/api/reservation")
         .then(res=>{const reservations=res.data;this.reservations=reservations.filter(reservation=>reservation.deleted==false)})
         .catch(err=>console.log(err))
     
@@ -112,7 +112,7 @@ const app=createApp({
     },
     methods:{
         addBook() {
-            const url = "http://localhost:8080/api/books/create";
+            const url = "/api/books/create";
             const data = {
               isbn: this.isbn,
               title: this.bookTitle,
@@ -155,7 +155,7 @@ const app=createApp({
           },
           
           addFeaturedAuthor() {
-            const url = "http://localhost:8080/api/authors/create";
+            const url = "/api/authors/create";
             const data = {
               firstName: this.firstNameAuthor,
               lastName: this.lastNameAuthor,
@@ -196,7 +196,7 @@ const app=createApp({
             });
           },
           addEvent() {
-            const url = "http://localhost:8080/api/events/create";
+            const url = "/api/events/create";
             const data = {
               name: this.nameEvent,
               img: this.imageEvent,
@@ -238,7 +238,7 @@ const app=createApp({
             });
           },
         addClient(){
-            axios.post('http://localhost:8080/api/clients/register/admin?',`firstName=${this.firstNameAccount}&lastName=${this.lastNameAccount}&email=${this.emailAccount}&password=${this.passwordAccount}&isAdmin=${this.isAdmin}`)
+            axios.post('/api/clients/register/admin?',`firstName=${this.firstNameAccount}&lastName=${this.lastNameAccount}&email=${this.emailAccount}&password=${this.passwordAccount}&isAdmin=${this.isAdmin}`)
             .then((res) => {
                 console.log(res.data);
                 swal("Success", `${res.data}`, "success"),location.reload();
@@ -270,7 +270,7 @@ const app=createApp({
           }).then((willDelete) => {
             if (willDelete) {
               axios
-                .put(`http://localhost:8080/api/books/delete?id=${id}`)
+                .put(`/api/books/delete?id=${id}`)
                 .then((res) => {swal("Book deleted successfully.", {
                     icon: "success",
                   }),location.reload();
@@ -290,7 +290,7 @@ const app=createApp({
           }).then((willDelete) => {
             if (willDelete) {
               axios
-                .put(`http://localhost:8080/api/authors/delete?id=${id}`)
+                .put(`/api/authors/delete?id=${id}`)
                 .then((res) => {swal("Author deleted successfully.", {
                     icon: "success",
                   }),location.reload();
@@ -310,7 +310,7 @@ const app=createApp({
           }).then((willDelete) => {
             if (willDelete) {
               axios
-                .put(`http://localhost:8080/api/events/delete?id=${id}`)
+                .put(`/api/events/delete?id=${id}`)
                 .then((res) => {swal("Event deleted successfully.", {
                     icon: "success",
                   }),location.reload();
@@ -330,7 +330,7 @@ const app=createApp({
           }).then((willDelete) => {
             if (willDelete) {
               axios
-                .put(`http://localhost:8080/api/clients/delete?id=${id}`)
+                .put(`/api/clients/delete?id=${id}`)
                 .then((res) => {swal("User deleted successfully.", {
                     icon: "success",
                   }),location.reload()
@@ -350,7 +350,7 @@ const app=createApp({
           }).then((willDelete) => {
             if (willDelete) {
               axios
-                .put(`http://localhost:8080/api/message/delete?id=${id}`)
+                .put(`/api/message/delete?id=${id}`)
                 .then((res) => {swal("Message deleted successfully.", {
                     icon: "success",
                   }),location.reload()
@@ -363,7 +363,7 @@ const app=createApp({
         },
 
         logOut(){
-          axios.post(`http://localhost:8080/api/logout`)
+          axios.post(`/api/logout`)
               .then(response => {
                   return window.location.href = "http://localhost:8080/index.html";
               })
@@ -378,7 +378,7 @@ const app=createApp({
           dangerMode: true,
         }).then((willEdit) => {
           if (willEdit) {
-            axios.put(`http://localhost:8080/api/clients/orderStatus?id=${id}&orderStatus=${this.orderStatus}`)
+            axios.put(`/api/clients/orderStatus?id=${id}&orderStatus=${this.orderStatus}`)
               .then((res) => {
                 location.reload();
               })
@@ -403,7 +403,7 @@ deleteBuyOrder(id){
         }).then((willDelete) => {
           if (willDelete) {
             axios
-              .put(`http://localhost:8080/api/buyOrder/delete?id=${id}`)
+              .put(`/api/buyOrder/delete?id=${id}`)
               .then((res) => {swal("Order deleted successfully.", {
                   icon: "success",
                 }),location.reload()
@@ -423,7 +423,7 @@ deleteBuyOrder(id){
         }).then((willDelete) => {
           if (willDelete) {
             axios
-              .put(`http://localhost:8080/api/reservation/delete?id=${id}`)
+              .put(`/api/reservation/delete?id=${id}`)
               .then((res) => {swal("Reservation deleted successfully.", {
                   icon: "success",
                 }),location.reload()
